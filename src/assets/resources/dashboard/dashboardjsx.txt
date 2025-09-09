@@ -3,17 +3,17 @@
 <DashboardPage title="Basic units">
   <InputCard
     title="Temperature pub/sub"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     puboptions={{ retain: true }}
     format={Celsius()}
   />
   <Card title="Select temperature">
     <ViewUnit
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       format={Celsius()}
     />
     <SliderUnit
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       puboptions={{ retain: true }}
       format={Celsius()}
     />
@@ -21,14 +21,14 @@
   <Card title="Temperature buttons">
     <ButtonUnit
       className="myhButtonCard"
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       puboptions={{ retain: true }}
       format={Celsius()}
       icon="+"
     />
     <ButtonUnit
       className="myhButtonCard"
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       puboptions={{ retain: true }}
       format={Celsius({ step: -1 })}
       icon="-"
@@ -36,7 +36,7 @@
   </Card>
   <ViewCard 
     title="Dashboard gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={DashboardIconFormat({
       title: "Dashboard gauge", 
       ...Celsius()

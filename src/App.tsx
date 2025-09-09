@@ -1,5 +1,5 @@
 /*
-MYHELLOIOT
+SmartehMqtt
 Copyright (C) 2021-2024 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -178,7 +178,7 @@ const MQTTApp: React.FC = () => {
     if (status.name === "ERROR") {
         return (
             <AppErrorLoad
-                title="Error loading MYHELLOIOT"
+                title="Error loading SmartehMqtt"
                 error={status.error}
             />
         );

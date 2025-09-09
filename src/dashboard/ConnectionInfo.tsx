@@ -87,7 +87,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
     } else if (protocolVersion === 5) {
         protocolVersionLabel = "5.0";
     } else {
-        protocolVersionLabel = "Unknonw";
+        protocolVersionLabel = "5.0";
     }
 
     const popover = (

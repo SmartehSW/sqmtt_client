@@ -1,5 +1,5 @@
 /*
-MYHELLOIOT
+SmartehMqtt
 Copyright (C) 2021-2023 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,9 +24,10 @@ const AppHeader: React.FC<{
     title?: string;
     subtitle?: string;
     children?: React.ReactNode;
-}> = ({ title = "MYHELLOIOT", subtitle, children }) => {
+}> = ({ title = "SmartehMqtt", subtitle, children }) => {
     return (
         <Layout.Header className="myhAppHeader">
+            <img src="./favicon.ico" alt="App Icon" className="w-6 h-6" />
             <span className="myhAppHeader-title">
                 {title + (subtitle ? " - " + subtitle : "")}
             </span>

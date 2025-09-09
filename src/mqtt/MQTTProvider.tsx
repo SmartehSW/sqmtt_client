@@ -1,5 +1,5 @@
 /*
-MYHELLOIOT
+SmartehMqtt
 Copyright (C) 2021-2024 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -66,7 +66,10 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         disconnect();
 
         try {
-            const client: MqttClient = mqtt.connect(url, options);
+            const client: MqttClient = mqtt.connect(url, {
+                ...options,
+                rejectUnauthorized: false,
+            });
             client.on("connect", () => {
                 setState(s => {
                     return {
@@ -194,6 +197,21 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         const topic = pubsubTopic(pubtopic);
         if (state.client?.connected) {
             if (topic !== "") {
+                // // Make sure it's a string first
+                // let value: number;
+                // if (typeof message === "string") {
+                //     value = parseInt(message, 10);
+                // } else {
+                //     // If it's a Buffer, convert to string first
+                //     value = parseInt(message.toString(), 10);
+                // }
+
+                // const buffer = Buffer.alloc(2);
+                // buffer.writeInt16LE(value);
+                // console.log("publishing message ", buffer);
+
+                console.log("publishing message ", message);
+
                 state.client.publish(topic, message, options || {});
             }
         } else {

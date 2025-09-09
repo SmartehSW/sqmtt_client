@@ -74,9 +74,9 @@ export const loadStoreConnectInfo = async (): Promise<ConnectInfo> => {
         );
         return {
             clientId: "",
-            url: "wss://mymqttbroker",
+            url: "wss://cloud.smarteh.com:9002",
             keepalive: 60,
-            protocolVersion: 4,
+            protocolVersion: 5,
             clean: true,
             connectTimeout: 30000,
             reconnectPeriod: 1000,

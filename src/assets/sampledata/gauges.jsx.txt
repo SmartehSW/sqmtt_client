@@ -3,17 +3,17 @@
 <DashboardPage title="Gauges">
   <Card title="Select temperature">
     <ViewUnit
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       format={Celsius()}
     />
     <SliderUnit
-      topic="myhelloiot/temperature"
+      topic="SmartehMqtt/temperature"
       format={Celsius()}
     />
   </Card>
   <ViewCard 
     title="Liquid gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={LiquidIconFormat({
       title: "Liquid gauge", 
       ...Celsius()
@@ -21,7 +21,7 @@
   />
   <ViewCard 
     title="Control gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={ControlIconFormat({
       title: "Control gauge", 
       ...Celsius()
@@ -29,7 +29,7 @@
   />
   <ViewCard 
     title="Fuel gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={FuelIconFormat({
       title: "Fuel gauge", 
       ...Celsius(),
@@ -38,7 +38,7 @@
   />
   <ViewCard 
     title="Progress gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={ProgressIconFormat({
       title: "Progress gauge", 
       ...Celsius()
@@ -46,7 +46,7 @@
   />
   <ViewCard 
     title="Linear gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={LinearIconFormat({
       title: "Linear gauge", 
       ...Celsius(),
@@ -55,7 +55,7 @@
   />
   <ViewCard 
     title="Dashboard gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={DashboardIconFormat({
       title: "Dashboard gauge", 
       ...Celsius()
@@ -63,7 +63,7 @@
   />
   <ViewCard 
     title="Simple gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={SimpleIconFormat({
       title: "Simple gauge", 
       ...Celsius()
@@ -71,7 +71,7 @@
   />
   <ViewCard 
     title="Circular gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={CircularIconFormat({
       title: "Circular gauge", 
       ...Celsius()
@@ -79,7 +79,7 @@
   />
   <ViewCard 
     title="Metro gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={MetroIconFormat({
       title: "Metro gauge", 
       ...Celsius()
@@ -87,7 +87,7 @@
   />
   <ViewCard 
     title="Space gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={SpaceIconFormat({
       title: "Space gauge", 
       ...Celsius()
@@ -95,7 +95,7 @@
   />
   <ViewCard 
     title="Dial gauge card"
-    topic="myhelloiot/temperature"
+    topic="SmartehMqtt/temperature"
     format={DialIconFormat({
       title: "Dial gauge", 
       ...Celsius()

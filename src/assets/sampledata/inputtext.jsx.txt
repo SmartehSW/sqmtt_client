@@ -3,19 +3,19 @@
 <DashboardPage title="Input text">
   <InputCard
     title="Topic publication"
-    pubtopic="myhelloiot/testingtopic"
+    pubtopic="SmartehMqtt/testingtopic"
   />
   <InputCard
     title="Topic subscription"
-    subtopic="myhelloiot/testingtopic"
+    subtopic="SmartehMqtt/testingtopic"
   />
   <InputCard
     title="Topic pub/sub"
-    topic="myhelloiot/testingtopic"
+    topic="SmartehMqtt/testingtopic"
   />
   <InputCard
     title="Topic Hexadecimal"
-    topic="myhelloiot/testingtopic"
+    topic="SmartehMqtt/testingtopic"
     format={HEXValueFormat()}
   />
 </DashboardPage>

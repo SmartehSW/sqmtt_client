@@ -3,25 +3,25 @@
 <DashboardPage title="Light switches">
   <ButtonUnit  
     className="btn-icontop"
-    topic="myhelloiot/testswitch1"
+    topic="SmartehMqtt/testswitch1"
     puboptions={{ retain: true }}
     format={SwitchIconValueFormat()}
   >Light 1</ButtonUnit>
   <ButtonUnit
     className="btn-icontop"
-    topic="myhelloiot/testswitch2"
+    topic="SmartehMqtt/testswitch2"
     puboptions={{ retain: true }}
     format={MoonIconValueFormat()}
   >Light 2</ButtonUnit>
   <ButtonUnit
     className="btn-icontop"
-    topic="myhelloiot/testswitch3"
+    topic="SmartehMqtt/testswitch3"
     puboptions={{ retain: true }}
     format={StarIconValueFormat()}
   >Light 3</ButtonUnit>
   <ButtonUnit
     className="btn-icontop"
-    topic="myhelloiot/testswitch4"
+    topic="SmartehMqtt/testswitch4"
     puboptions={{ retain: true }}
     format={HeartIconValueFormat()}
   >Light 4</ButtonUnit>
@@ -29,64 +29,64 @@
     <div style={{display: "flex", margin: "4px"}}>
       <div style={{flex: "0 1 40px", textAlign: "center"}}>
         <ViewUnit
-          subtopic="myhelloiot/testswitch1"
+          subtopic="SmartehMqtt/testswitch1"
           format={BulbIconFormat()}
         />
       </div>
       <div style={{flex: "1 1 auto"}}>Light test 1: </div>
       <div style={{flex: "0 1 auto"}}>
         <SwitchUnit
-          pubtopic="myhelloiot/testswitch1"
+          pubtopic="SmartehMqtt/testswitch1"
           puboptions={{ retain: true }}
-          subtopic="myhelloiot/testswitch1"
+          subtopic="SmartehMqtt/testswitch1"
         />
       </div>
     </div>
     <div style={{display: "flex", margin: "4px"}}>
       <div style={{flex: "0 1 40px", textAlign: "center"}}>
         <ViewUnit
-          subtopic="myhelloiot/testswitch2"
+          subtopic="SmartehMqtt/testswitch2"
           format={MoonIconFormat()}
         />
       </div>
       <div style={{flex: "1 1 auto"}}>Light test 2: </div>
       <div style={{flex: "0 1 auto"}}>
         <SwitchUnit
-          pubtopic="myhelloiot/testswitch2"
+          pubtopic="SmartehMqtt/testswitch2"
           puboptions={{ retain: true }}
-          subtopic="myhelloiot/testswitch2"
+          subtopic="SmartehMqtt/testswitch2"
         />
       </div>
     </div>
     <div style={{display: "flex", margin: "4px"}}>
       <div style={{flex: "0 1 40px", textAlign: "center"}}>
         <ViewUnit
-          subtopic="myhelloiot/testswitch3"
+          subtopic="SmartehMqtt/testswitch3"
           format={StarIconFormat()}
         />
       </div>
       <div style={{flex: "1 1 auto"}}>Light test 3: </div>
       <div style={{flex: "0 1 auto"}}>
         <SwitchUnit
-          pubtopic="myhelloiot/testswitch3"
+          pubtopic="SmartehMqtt/testswitch3"
           puboptions={{ retain: true }}
-          subtopic="myhelloiot/testswitch3"
+          subtopic="SmartehMqtt/testswitch3"
         />
       </div>
     </div>
         <div style={{display: "flex", margin: "4px"}}>
       <div style={{flex: "0 1 40px", textAlign: "center"}}>
         <ViewUnit
-          subtopic="myhelloiot/testswitch4"
+          subtopic="SmartehMqtt/testswitch4"
           format={HeartIconFormat()}
         />
       </div>
       <div style={{flex: "1 1 auto"}}>Light test 4: </div>
       <div style={{flex: "0 1 auto"}}>
         <SwitchUnit
-          pubtopic="myhelloiot/testswitch4"
+          pubtopic="SmartehMqtt/testswitch4"
           puboptions={{ retain: true }}
-          subtopic="myhelloiot/testswitch4"
+          subtopic="SmartehMqtt/testswitch4"
         />
       </div>
     </div>

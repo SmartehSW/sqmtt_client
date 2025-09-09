@@ -1,5 +1,5 @@
 /*
-MYHELLOIOT
+SmartehMqtt
 Copyright (C) 2021-2023 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -29,7 +29,8 @@ import GitHubRibbon from "../assets/svg/github.svg?react";
 import { ConnectInfoForm } from "./ConnectInfoForm";
 import { VERSION } from "../version";
 
-const myhelloiotimg = new URL("../assets/myhelloiot.png", import.meta.url).href;
+const SmartehMqttimg = new URL("../assetsSmartehMqttt.png", import.meta.url)
+    .href;
 
 const { Title, Paragraph, Link } = Typography;
 
@@ -48,7 +49,7 @@ const ContentConnectAbout: React.FC<{
     return (
         <>
             <Link
-                href="https://github.com/adrianromero/myhelloiot"
+                href="https://github.com/adrianromero/SmartehMqtt"
                 target="_blank"
                 style={{
                     position: "absolute",
@@ -66,7 +67,7 @@ const ContentConnectAbout: React.FC<{
 
             <Typography>
                 <Title level={2}>
-                    MYHELLOIOT{" "}
+                    SmartehMqtt{" "}
                     <Tag
                         icon={<SVGIcon icon={faCodeBranch} />}
                         color="geekblue"
@@ -75,7 +76,7 @@ const ContentConnectAbout: React.FC<{
                     </Tag>
                 </Title>
                 <Paragraph>
-                    MYHELLOIOT is a{" "}
+                    SmartehMqtt is a{" "}
                     <Link
                         href="https://en.wikipedia.org/wiki/MQTT"
                         target="_blank"
@@ -89,10 +90,10 @@ const ContentConnectAbout: React.FC<{
                     >
                         HelloIoT
                     </Link>
-                    . You can use MYHELLOIOT as a MQTT client application to
-                    publish and subscribe to topics or you can use MYHELLOIOT as
-                    a client platform to create your own dashboard. MYHELLOIOT
-                    is a{" "}
+                    . You can use SmartehMqtt as a MQTT client application to
+                    publish and subscribe to topics or you can use SmartehMqtt
+                    as a client platform to create your own dashboard.
+                    SmartehMqtt is a{" "}
                     <Link
                         href="https://en.wikipedia.org/wiki/Progressive_web_application"
                         target="_blank"
@@ -106,7 +107,7 @@ const ContentConnectAbout: React.FC<{
                 <Paragraph
                     style={{ display: "flex", justifyContent: "center" }}
                 >
-                    <Image src={myhelloiotimg} width={480} />
+                    <Image src={SmartehMqttimg} width={480} />
                 </Paragraph>
                 <Title level={2}>Getting started</Title>
                 <Title level={4}>MQTT connection options</Title>
@@ -340,8 +341,8 @@ const ContentConnectAbout: React.FC<{
                 </Paragraph>
                 <Title level={2}>License</Title>
                 <Paragraph>
-                    MYHELLOIOT is licensed under the GNU General Public License,
-                    Version 3, 29 June 2007.
+                    SmartehMqtt is licensed under the GNU General Public
+                    License, Version 3, 29 June 2007.
                 </Paragraph>
                 <Paragraph>Copyright (C) 2021-2024 Adrián Romero.</Paragraph>
             </Typography>

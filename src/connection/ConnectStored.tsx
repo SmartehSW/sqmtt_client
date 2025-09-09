@@ -1,5 +1,5 @@
 /*
-MYHELLOIOT
+SmartehMqtt
 Copyright (C) 2021-2024 Adrián Romero
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -48,7 +48,6 @@ import { ConnectInfoForm } from "./ConnectInfoForm";
 import ModalError from "../ModalError";
 import AppHeader from "../AppHeader";
 import UploadRaw from "./UploadRaw";
-import ContentConnectAbout from "./ContentConnectAbout";
 import "./ContentConnect.css";
 import SVGIcon from "../format/SVGIcon";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
@@ -104,7 +103,7 @@ const ConnectStored: React.FC<{
                         clientId: connectInfoForm.clientId,
                         url: connectInfoForm.url,
                         keepalive: connectInfoForm.keepalive,
-                        protocolVersion: connectInfoForm.protocolVersion,
+                        protocolVersion: 5,
                         clean: connectInfoForm.clean,
                         connectTimeout: connectInfoForm.connectTimeout,
                         reconnectPeriod: connectInfoForm.reconnectPeriod,
@@ -147,7 +146,7 @@ const ConnectStored: React.FC<{
                 className="myhConnectionForm"
             >
                 <Layout className="myhLayout">
-                    <AppHeader title="Dashboard properties">
+                    <AppHeader title="Smarteh MQTT">
                         <Button
                             icon={<SVGIcon icon={faPowerOff} />}
                             type="primary"
@@ -161,13 +160,6 @@ const ConnectStored: React.FC<{
                             <Tabs
                                 defaultActiveKey="1"
                                 items={[
-                                    {
-                                        label: "About",
-                                        key: "1",
-                                        children: (
-                                            <ContentConnectAbout form={form} />
-                                        ),
-                                    },
                                     {
                                         label: "MQTT Connection",
                                         key: "3",
@@ -222,7 +214,13 @@ const ConnectStored: React.FC<{
                                                             },
                                                         ]}
                                                     >
-                                                        <Input autoComplete="off" />
+                                                        <Input
+                                                            autoComplete="off"
+                                                            defaultValue={
+                                                                "wss://cloud.smarteh.com:9002"
+                                                            }
+                                                            disabled={true}
+                                                        />
                                                     </Form.Item>
                                                 </Col>
                                                 <Col
@@ -405,6 +403,8 @@ const ConnectStored: React.FC<{
                                                             style={{
                                                                 width: 120,
                                                             }}
+                                                            disabled={true}
+                                                            defaultValue={5}
                                                             options={[
                                                                 {
                                                                     value: 3,
