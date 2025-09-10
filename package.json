@@ -3,9 +3,9 @@
     "private": true,
     "version": "1.1.16",
     "type": "module",
-    "homepage": "https://adrianromero.github.io/SmartehMqtt/",
+    "homepage": "https://smartehsw.github.io/smqtt_client",
     "scripts": {
-        "predeploy": "yarn build",
+        "predeploy": "npm run build",
         "deploy": "gh-pages -d dist",
         "dev": "vite",
         "build": "tsc && vite build",
