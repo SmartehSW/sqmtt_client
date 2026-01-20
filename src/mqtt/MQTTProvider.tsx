@@ -189,35 +189,66 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
+    // const publish = (
+    //     pubtopic: string,
+    //     message: Buffer | string,
+    //     options?: IClientPublishOptions,
+    // ) => {
+    //     const topic = pubsubTopic(pubtopic);
+    //     if (state.client?.connected) {
+    //         if (topic !== "") {
+    //             // // Make sure it's a string first
+    //             // let value: number;
+    //             // if (typeof message === "string") {
+    //             //     value = parseInt(message, 10);
+    //             // } else {
+    //             //     // If it's a Buffer, convert to string first
+    //             //     value = parseInt(message.toString(), 10);
+    //             // }
+
+    //             // const buffer = Buffer.alloc(2);
+    //             // buffer.writeInt16LE(value);
+    //             // console.log("publishing message ", buffer);
+
+    //             console.log("publishing message ", message);
+
+    //             state.client.publish(topic, message, options || {});
+    //         }
+    //     } else {
+    //         // TODO: Better just notify not connected
+    //         throw new Error("Not connected");
+    //     }
+    // };
+
     const publish = (
         pubtopic: string,
         message: Buffer | string,
         options?: IClientPublishOptions,
     ) => {
         const topic = pubsubTopic(pubtopic);
-        if (state.client?.connected) {
-            if (topic !== "") {
-                // // Make sure it's a string first
-                // let value: number;
-                // if (typeof message === "string") {
-                //     value = parseInt(message, 10);
-                // } else {
-                //     // If it's a Buffer, convert to string first
-                //     value = parseInt(message.toString(), 10);
-                // }
 
-                // const buffer = Buffer.alloc(2);
-                // buffer.writeInt16LE(value);
-                // console.log("publishing message ", buffer);
-
-                console.log("publishing message ", message);
-
-                state.client.publish(topic, message, options || {});
-            }
-        } else {
-            // TODO: Better just notify not connected
+        if (!state.client?.connected) {
             throw new Error("Not connected");
         }
+
+        if (!topic) return;
+
+        const value =
+            typeof message === "string" ? message : message.toString("utf8");
+
+        const payload = {
+            value,
+            options: options ?? {},
+        };
+
+        const json = JSON.stringify(payload);
+
+        console.log("publishing JSON", json);
+
+        state.client.publish(topic, json, {
+            qos: options?.qos ?? 0,
+            retain: options?.retain ?? false,
+        });
     };
 
     const clientoptions = state.client?.options;
