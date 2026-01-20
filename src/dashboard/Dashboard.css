@@ -68,6 +68,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     }
 }
 
+.myhDashboard-version {
+    position: fixed;
+    bottom: 8px;
+    right: 12px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.45);
+    user-select: none;
+    pointer-events: none;
+    z-index: 1000;
+}
+
 @media (width >= 1600px) {
     .myhDashboardPage {
         grid-template-columns: repeat(6, 1fr);

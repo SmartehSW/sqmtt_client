@@ -1,7 +1,7 @@
 {
     "name": "SmartehMqtt",
     "private": true,
-    "version": "1.1.16",
+    "version": "1.0.1",
     "type": "module",
     "homepage": "https://smartehsw.github.io/smqtt_client",
     "scripts": {

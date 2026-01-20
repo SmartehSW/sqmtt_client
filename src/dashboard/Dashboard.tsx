@@ -51,6 +51,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     );
     const [visibleDrawer, setVisibleDrawer] = useState<boolean>(false);
     const [{ connected }, { publish }] = useMQTTContext();
+
+    const VERSION = process.env.REACT_APP_VERSION ?? "dev";
+
     useMQTTSubscribe(topic, (mqttmessage: MQTTMessage) => {
         const key = mqttmessage.message.toString();
         if (key !== panelkey) {
@@ -162,6 +165,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     {remainingchildren}
                 </Spin>
             </Layout.Content>
+            <div className="myhDashboard-version">v{VERSION}</div>{" "}
         </Layout>
     );
 };
