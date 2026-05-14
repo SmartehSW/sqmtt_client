@@ -32,6 +32,8 @@ import {
     ConnectedStatus,
     saveStoreConnectConnected,
 } from "../connection/ConnectionInfo";
+import type { MQTTStatus } from "../mqtt/MQTTContext";
+import { useI18n } from "../i18n/LocaleProvider";
 
 const { Text } = Typography;
 
@@ -44,6 +46,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
 }) => {
     const [{ options, status }] = useMQTTContext();
     const dispatch = useAppDispatch();
+    const { t } = useI18n();
 
     const {
         protocol,
@@ -68,7 +71,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                   ),
               }
             : {
-                  label: status,
+                  label: t.mqttStatus[status as MQTTStatus] ?? status,
                   icon: (
                       <SVGIcon
                           icon={faCircleXmark}
@@ -95,7 +98,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
             <div style={{ width: 280 }}>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>User name:</Text>
+                        <Text>{t.connectionInfo.userName}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -105,7 +108,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>Protocol:</Text>
+                        <Text>{t.connectionInfo.protocol}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -115,7 +118,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>Host name:</Text>
+                        <Text>{t.connectionInfo.hostName}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -125,7 +128,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>Port:</Text>
+                        <Text>{t.connectionInfo.port}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -135,7 +138,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>Path:</Text>
+                        <Text>{t.connectionInfo.path}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -145,7 +148,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>MQTT protocol:</Text>
+                        <Text>{t.connectionInfo.mqttProtocol}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -155,7 +158,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                 </Row>
                 <Row wrap={false}>
                     <Col flex="120px">
-                        <Text>Client Id:</Text>
+                        <Text>{t.connectionInfo.clientId}</Text>
                     </Col>
                     <Col flex="auto">
                         <Text type="secondary" strong>
@@ -177,7 +180,7 @@ const ConnectionInfo: React.FC<ConnectionInfoProps> = ({
                             dispatch(disconnect());
                         }}
                     >
-                        Disconnect
+                        {t.connectionInfo.disconnect}
                     </Button>
                 </>
             )}

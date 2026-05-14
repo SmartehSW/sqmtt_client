@@ -30,11 +30,18 @@ export type SubscribeHandler = {
 
 export type MQTTMessage = {
     topic: string;
-    message: Buffer;
+    message: Buffer; // raw MQTT payload (unchanged)
     time: number;
     qos?: QoS;
     retain?: boolean;
     dup?: boolean;
+
+    // ✅ NEW (decoded from JSON envelope)
+    value?: string;
+    options?: {
+        qos?: QoS;
+        retain?: boolean;
+    };
 };
 
 export type MQTTStatus =

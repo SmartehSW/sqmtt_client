@@ -30,6 +30,7 @@ import {
     ConnectedStatus,
     saveStoreConnectConnected,
 } from "./connection/ConnectionInfo";
+import { useI18n } from "./i18n/LocaleProvider";
 
 const AppError: React.FC<{
     title: string;
@@ -37,6 +38,7 @@ const AppError: React.FC<{
     jsx?: string;
 }> = ({ title, errorMessage, jsx }) => {
     const dispatch = useAppDispatch();
+    const { t } = useI18n();
 
     return (
         <Layout className="myhLayout">
@@ -49,7 +51,7 @@ const AppError: React.FC<{
                         dispatch(disconnect());
                     }}
                 >
-                    Back
+                    {t.common.back}
                 </Button>
             </AppHeader>
             <Layout.Content className="myhLayoutContent">

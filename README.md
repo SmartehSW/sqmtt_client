@@ -9,7 +9,7 @@ You can use SmartehMqtt as a MQTT client application to publish and subscribe to
 
 ## Execute and install SmartehMqtt
 
-To execute SmartehMqtt just open your browser and go to SmartehMqttt](https://adrianromero.github.iSmartehMqttqtt/). And if you want to install it, in the browser menu select _Install application_.
+To execute SmartehMqtt just open your browser and go to SmartehMqttt](<https://adrianromero.github.iSmartehMqttqtt/>). And if you want to install it, in the browser menu select _Install application_.
 
 ## Install a MQTT Broker
 
@@ -37,7 +37,7 @@ In the [MQTT Community Wiki](https://github.com/mqtt/mqtt.github.io/wiki/tools),
 
 # Acknowledges
 
-Creative Commons 0 Licensed sound effects obtained from https://freesound.org/
+Creative Commons 0 Licensed sound effects obtained from <https://freesound.org/>
 
 # License
 

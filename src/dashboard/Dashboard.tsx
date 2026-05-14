@@ -52,15 +52,16 @@ const Dashboard: React.FC<DashboardProps> = ({
     const [visibleDrawer, setVisibleDrawer] = useState<boolean>(false);
     const [{ connected }, { publish }] = useMQTTContext();
 
-    const VERSION = process.env.REACT_APP_VERSION ?? "dev";
-
     useMQTTSubscribe(topic, (mqttmessage: MQTTMessage) => {
-        const key = mqttmessage.message.toString();
-        if (key !== panelkey) {
+        const key =
+            typeof mqttmessage.value === "string" ? mqttmessage.value : "";
+
+        if (key && key !== panelkey) {
             hideDrawer();
             setPanelkey(key);
         }
     });
+
     useEffect(() => window.scrollTo(0, 0), [panelkey]);
 
     function handleSelect({ key }: { key: string }) {
@@ -117,6 +118,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
     return (
         <Layout className={`myhLayout ${className}`}>
+            {" "}
             <AppHeader title={title}>
                 {menus.length > 0 && (
                     <div className="myhDashboard-buttonmenu">
@@ -163,9 +165,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                         </div>
                     ))}
                     {remainingchildren}
-                </Spin>
+                </Spin>{" "}
             </Layout.Content>
-            <div className="myhDashboard-version">v{VERSION}</div>{" "}
         </Layout>
     );
 };

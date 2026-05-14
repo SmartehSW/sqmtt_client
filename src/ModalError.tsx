@@ -20,6 +20,7 @@ import { Button, Modal } from "antd";
 import SVGIcon from "./format/SVGIcon";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import "./ModalError.css";
+import { useI18n } from "./i18n/LocaleProvider";
 
 const ModalError: React.FC<{
     title: string;
@@ -27,6 +28,7 @@ const ModalError: React.FC<{
     onOk: React.MouseEventHandler<HTMLElement>;
     visible: boolean;
 }> = ({ title, errorMessage, onOk, visible }) => {
+    const { t } = useI18n();
     return (
         <Modal footer={null} closable={false} open={visible}>
             <div className="myhModalError-container">
@@ -42,7 +44,7 @@ const ModalError: React.FC<{
             </div>
             <div className="myhModalError-ok">
                 <Button type="primary" onClick={onOk}>
-                    OK
+                    {t.common.ok}
                 </Button>
             </div>
         </Modal>

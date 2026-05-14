@@ -21,6 +21,7 @@ import { faUpload, faDownload } from "@fortawesome/free-solid-svg-icons";
 import { Upload, Button, Input, Col, Row } from "antd";
 import { RcFile } from "antd/lib/upload/interface";
 import "./UploadRaw.css";
+import { useI18n } from "../i18n/LocaleProvider";
 
 export type FileInfo = {
     name: string;
@@ -41,6 +42,7 @@ const UploadRaw: React.FC<UploadRawProps> = ({
     onChange,
     className,
 }) => {
+    const { t } = useI18n();
     const handleUpload = (file: RcFile): boolean => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -89,7 +91,7 @@ const UploadRaw: React.FC<UploadRawProps> = ({
                 <Col xs={24} sm={24} md={24} lg={24}>
                     <Row gutter={[8, 8]} wrap={false} align="middle">
                         <Col flex="0 1 auto">
-                            <span>Name:</span>
+                            <span>{t.upload.nameLabel}</span>
                         </Col>
                         <Col flex="1 1 auto">
                             <Input

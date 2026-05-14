@@ -21,16 +21,18 @@ import AppHeader from "./AppHeader";
 import SVGIcon from "./format/SVGIcon";
 import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import "./AppError.css";
+import { useI18n } from "./i18n/LocaleProvider";
 
 const AppErrorLoad: React.FC<{ title: string; error: unknown }> = ({
     title,
     error,
 }) => {
+    const { t } = useI18n();
     let message;
     if (typeof error === "string") {
         message = error;
     } else {
-        message = "Unknown error.";
+        message = t.common.unknownError;
     }
     return (
         <Layout className="myhLayout">

@@ -1,23 +1,13 @@
 /*
 SmartehMqtt
 Copyright (C) 2021-2024 Adrián Romero
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+GNU GPL v3
 */
 
 import React, { useState, ReactNode } from "react";
 import { Buffer } from "buffer";
 import mqtt from "mqtt";
+import type { QoS } from "mqtt-packet";
 import {
     MqttClient,
     IClientSubscribeOptions,
@@ -70,59 +60,98 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
                 ...options,
                 rejectUnauthorized: false,
             });
-            client.on("connect", () => {
-                setState(s => {
-                    return {
-                        status: "Connected",
-                        client: s.client,
-                        _subscriptions: s._subscriptions,
-                    };
-                });
-            });
-            client.on("error", () => {
+
+            client.on("connect", () =>
+                setState(s => ({
+                    status: "Connected",
+                    client: s.client,
+                    _subscriptions: s._subscriptions,
+                })),
+            );
+
+            client.on("error", () =>
                 setState(s => ({
                     status: "Error",
                     client: s.client,
                     _subscriptions: s._subscriptions,
-                }));
-            });
-            client.on("reconnect", () => {
+                })),
+            );
+
+            client.on("reconnect", () =>
                 setState(s => ({
                     status: "Reconnecting",
                     client: s.client,
                     _subscriptions: s._subscriptions,
-                }));
-            });
-            client.on("close", () => {
+                })),
+            );
+
+            client.on("close", () =>
                 setState(s => ({
                     status: "Closed",
                     client: s.client,
                     _subscriptions: s._subscriptions,
-                }));
-            });
-            client.on("offline", () => {
+                })),
+            );
+
+            client.on("offline", () =>
                 setState(s => ({
                     status: "Offline",
                     client: s.client,
                     _subscriptions: s._subscriptions,
-                }));
-            });
-            client.on("disconnect", () => {
+                })),
+            );
+
+            client.on("disconnect", () =>
                 setState(s => ({
                     status: "Disconnecting",
                     client: s.client,
                     _subscriptions: s._subscriptions,
-                }));
-            });
+                })),
+            );
+
             client.on(
                 "message",
                 (topic: string, message: Buffer, packet: IPublishPacket) => {
+                    const raw = message.toString("utf8");
+
+                    let value: string | undefined;
+                    let options:
+                        | { qos?: QoS; retainValue?: boolean }
+                        | undefined;
+
+                    try {
+                        const parsed = JSON.parse(raw);
+                        if (parsed && typeof parsed === "object") {
+                            value =
+                                parsed.value !== undefined &&
+                                parsed.value !== null
+                                    ? String(parsed.value)
+                                    : undefined;
+
+                            if (parsed.options) {
+                                options = {
+                                    qos: parsed.options.qos,
+                                    retainValue: parsed.options.retain,
+                                };
+                            }
+                        }
+                    } catch {
+                        value = raw;
+                    }
+
                     state._subscriptions.forEach(subs => {
                         if (match(subs.topic, topic)) {
+                            const legacyMessage =
+                                value !== undefined
+                                    ? Buffer.from(value, "utf8")
+                                    : message;
+
                             subs.listener({
                                 topic,
-                                message,
-                                time: new Date().getTime(),
+                                message: legacyMessage,
+                                value,
+                                options,
+                                time: Date.now(),
                                 qos: packet.qos,
                                 retain: packet.retain,
                                 dup: packet.dup,
@@ -176,12 +205,9 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
     const unsubscribe = (handler: SubscribeHandler | null) => {
         if (state.client && handler) {
-            const inx: number = state._subscriptions.findIndex(
-                s => s === handler,
-            );
-            if (inx < 0) {
-                throw new Error("Not subscribed");
-            }
+            const inx = state._subscriptions.findIndex(s => s === handler);
+            if (inx < 0) throw new Error("Not subscribed");
+
             state._subscriptions.splice(inx, 1);
             if (!state._subscriptions.some(s => s.topic === handler.topic)) {
                 state.client.unsubscribe(handler.topic);
@@ -189,70 +215,36 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         }
     };
 
-    // const publish = (
-    //     pubtopic: string,
-    //     message: Buffer | string,
-    //     options?: IClientPublishOptions,
-    // ) => {
-    //     const topic = pubsubTopic(pubtopic);
-    //     if (state.client?.connected) {
-    //         if (topic !== "") {
-    //             // // Make sure it's a string first
-    //             // let value: number;
-    //             // if (typeof message === "string") {
-    //             //     value = parseInt(message, 10);
-    //             // } else {
-    //             //     // If it's a Buffer, convert to string first
-    //             //     value = parseInt(message.toString(), 10);
-    //             // }
-
-    //             // const buffer = Buffer.alloc(2);
-    //             // buffer.writeInt16LE(value);
-    //             // console.log("publishing message ", buffer);
-
-    //             console.log("publishing message ", message);
-
-    //             state.client.publish(topic, message, options || {});
-    //         }
-    //     } else {
-    //         // TODO: Better just notify not connected
-    //         throw new Error("Not connected");
-    //     }
-    // };
-
     const publish = (
         pubtopic: string,
         message: Buffer | string,
         options?: IClientPublishOptions,
     ) => {
         const topic = pubsubTopic(pubtopic);
-
-        if (!state.client?.connected) {
+        if (!state.client?.connected || !topic) {
             throw new Error("Not connected");
         }
-
-        if (!topic) return;
 
         const value =
             typeof message === "string" ? message : message.toString("utf8");
 
         const payload = {
             value,
-            options: options ?? {},
+            options: {
+                qos: options?.qos,
+                retainValue: options?.retain ? "true" : "false",
+            },
         };
-
-        const json = JSON.stringify(payload);
-
-        console.log("publishing JSON", json);
-
-        state.client.publish(topic, json, {
+        
+        state.client.publish(topic, JSON.stringify(payload), {
             qos: options?.qos ?? 0,
             retain: options?.retain ?? false,
         });
     };
 
     const clientoptions = state.client?.options;
-    const value: MQTTContextValue = [
+
+    const contextValue: MQTTContextValue = [
         {
             status: state.status,
             error: state.error,
@@ -277,8 +269,11 @@ const MQTTProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
             publish,
         },
     ];
+
     return (
-        <MQTTContext.Provider value={value}>{children}</MQTTContext.Provider>
+        <MQTTContext.Provider value={contextValue}>
+            {children}
+        </MQTTContext.Provider>
     );
 };
 

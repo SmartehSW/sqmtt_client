@@ -51,6 +51,7 @@ import UploadRaw from "./UploadRaw";
 import "./ContentConnect.css";
 import SVGIcon from "../format/SVGIcon";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { useI18n, LanguageSelect } from "../i18n/LocaleProvider";
 
 type ModalErrorInfo = {
     title: string;
@@ -65,6 +66,7 @@ const ConnectStored: React.FC<{
     const [form] = Form.useForm<ConnectInfoForm>();
     const will = Form.useWatch("will", form);
     const dispatch = useAppDispatch();
+    const { t } = useI18n();
     const HIDDEN: ModalErrorInfo = {
         visible: false,
         title: "",
@@ -88,8 +90,8 @@ const ConnectStored: React.FC<{
     const handleFail = (): void => {
         showError({
             visible: true,
-            title: "Connection values error",
-            errorMessage: "Please fix the values with validation messages",
+            title: t.connectForm.connectionValuesErrorTitle,
+            errorMessage: t.connectForm.connectionValuesErrorMsg,
         });
     };
     return (
@@ -136,9 +138,9 @@ const ConnectStored: React.FC<{
                     } catch {
                         showError({
                             visible: true,
-                            title: "Connection error",
+                            title: t.connectForm.connectionStorageErrorTitle,
                             errorMessage:
-                                "Connection values cannot be stored locally. Please review the application permissions.",
+                                t.connectForm.connectionStorageErrorMsg,
                         });
                     }
                 }}
@@ -146,13 +148,14 @@ const ConnectStored: React.FC<{
                 className="myhConnectionForm"
             >
                 <Layout className="myhLayout">
-                    <AppHeader title="Smarteh MQTT">
+                    <AppHeader title={t.connectForm.headerSmartehMqtt}>
+                        <LanguageSelect />
                         <Button
                             icon={<SVGIcon icon={faPowerOff} />}
                             type="primary"
                             htmlType="submit"
                         >
-                            Connect
+                            {t.connectForm.connect}
                         </Button>
                     </AppHeader>
                     <Layout.Content className="myhLayoutContent">
@@ -161,7 +164,7 @@ const ConnectStored: React.FC<{
                                 defaultActiveKey="1"
                                 items={[
                                     {
-                                        label: "MQTT Connection",
+                                        label: t.connectForm.mqttTab,
                                         key: "3",
                                         forceRender: true,
                                         children: (
@@ -193,9 +196,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="url"
                                                         className="ant-form-item-required"
-                                                        title="URL"
+                                                        title={t.connectForm.url}
                                                     >
-                                                        URL
+                                                        {t.connectForm.url}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -210,7 +213,8 @@ const ConnectStored: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please input the url of the MQTT broker.",
+                                                                    t.connectForm
+                                                                        .valUrlRequired,
                                                             },
                                                         ]}
                                                     >
@@ -245,9 +249,9 @@ const ConnectStored: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="username"
-                                                        title="User"
+                                                        title={t.connectForm.user}
                                                     >
-                                                        User
+                                                        {t.connectForm.user}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -269,9 +273,9 @@ const ConnectStored: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="password"
-                                                        title="Password"
+                                                        title={t.connectForm.password}
                                                     >
-                                                        Password
+                                                        {t.connectForm.password}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -306,9 +310,9 @@ const ConnectStored: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="clientId"
-                                                        title="Client ID"
+                                                        title={t.connectForm.clientId}
                                                     >
-                                                        Client ID
+                                                        {t.connectForm.clientId}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -331,9 +335,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="keepalive"
                                                         className="ant-form-item-required"
-                                                        title="Keep alive"
+                                                        title={t.connectForm.keepAlive}
                                                     >
-                                                        Keep alive
+                                                        {t.connectForm.keepAlive}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -348,7 +352,8 @@ const ConnectStored: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please define a Keep alive value.",
+                                                                    t.connectForm
+                                                                        .valKeepAlive,
                                                             },
                                                         ]}
                                                     >
@@ -378,9 +383,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="protocolVersion"
                                                         className="ant-form-item-required"
-                                                        title="Protocol version"
+                                                        title={t.connectForm.protocolVersion}
                                                     >
-                                                        Protocol version
+                                                        {t.connectForm.protocolVersion}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -395,7 +400,8 @@ const ConnectStored: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please define a Protocol version.",
+                                                                    t.connectForm
+                                                                        .valProtocolVersion,
                                                             },
                                                         ]}
                                                     >
@@ -432,9 +438,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="clean"
                                                         className="ant-form-item-required"
-                                                        title="Clean session"
+                                                        title={t.connectForm.cleanSession}
                                                     >
-                                                        Clean session
+                                                        {t.connectForm.cleanSession}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -473,9 +479,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="connectTimeout"
                                                         className="ant-form-item-required"
-                                                        title="Connection timeout"
+                                                        title={t.connectForm.connectionTimeout}
                                                     >
-                                                        Connection timeout
+                                                        {t.connectForm.connectionTimeout}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -490,7 +496,8 @@ const ConnectStored: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please define a Connection timeout value.",
+                                                                    t.connectForm
+                                                                        .valConnectTimeout,
                                                             },
                                                         ]}
                                                     >
@@ -507,9 +514,9 @@ const ConnectStored: React.FC<{
                                                     <label
                                                         htmlFor="reconnectPeriod"
                                                         className="ant-form-item-required"
-                                                        title="Reconnect period"
+                                                        title={t.connectForm.reconnectPeriod}
                                                     >
-                                                        Reconnect period
+                                                        {t.connectForm.reconnectPeriod}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -524,7 +531,8 @@ const ConnectStored: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please define a Reconnect period value.",
+                                                                    t.connectForm
+                                                                        .valReconnect,
                                                             },
                                                         ]}
                                                     >
@@ -555,7 +563,7 @@ const ConnectStored: React.FC<{
                                                         valuePropName="checked"
                                                     >
                                                         <Checkbox>
-                                                            Last will message
+                                                            {t.connectForm.lastWill}
                                                         </Checkbox>
                                                     </Form.Item>
                                                 </Col>
@@ -591,9 +599,9 @@ const ConnectStored: React.FC<{
                                                                     <label
                                                                         htmlFor="willtopic"
                                                                         className="ant-form-item-required"
-                                                                        title="Topic"
+                                                                        title={t.connectForm.topic}
                                                                     >
-                                                                        Topic
+                                                                        {t.connectForm.topic}
                                                                     </label>
                                                                 </Col>
                                                                 <Col
@@ -609,7 +617,9 @@ const ConnectStored: React.FC<{
                                                                                 required:
                                                                                     !disabled,
                                                                                 message:
-                                                                                    "Please input the url of the topic for the last will message.",
+                                                                                    t
+                                                                                        .connectForm
+                                                                                        .valWillTopic,
                                                                             },
                                                                         ]}
                                                                     >
@@ -643,9 +653,9 @@ const ConnectStored: React.FC<{
                                                                 >
                                                                     <label
                                                                         htmlFor="willpayload"
-                                                                        title="Payload"
+                                                                        title={t.connectForm.payload}
                                                                     >
-                                                                        Payload
+                                                                        {t.connectForm.payload}
                                                                     </label>
                                                                 </Col>
                                                                 <Col
@@ -686,9 +696,9 @@ const ConnectStored: React.FC<{
                                                                     <label
                                                                         htmlFor="willqos"
                                                                         className="ant-form-item-required"
-                                                                        title="QoS"
+                                                                        title={t.connectForm.qos}
                                                                     >
-                                                                        QoS
+                                                                        {t.connectForm.qos}
                                                                     </label>
                                                                 </Col>
                                                                 <Col
@@ -704,7 +714,9 @@ const ConnectStored: React.FC<{
                                                                                 required:
                                                                                     !disabled,
                                                                                 message:
-                                                                                    "Please input the QoS for the last will message.",
+                                                                                    t
+                                                                                        .connectForm
+                                                                                        .valWillQos,
                                                                             },
                                                                         ]}
                                                                     >
@@ -742,9 +754,9 @@ const ConnectStored: React.FC<{
                                                                     <label
                                                                         htmlFor="willretail"
                                                                         className="ant-form-item-required"
-                                                                        title="Retain"
+                                                                        title={t.connectForm.retain}
                                                                     >
-                                                                        Retain
+                                                                        {t.connectForm.retain}
                                                                     </label>
                                                                 </Col>
                                                                 <Col
@@ -761,7 +773,9 @@ const ConnectStored: React.FC<{
                                                                                 required:
                                                                                     !disabled,
                                                                                 message:
-                                                                                    "Please input the retain value for the last will message.",
+                                                                                    t
+                                                                                        .connectForm
+                                                                                        .valWillRetain,
                                                                             },
                                                                         ]}
                                                                     >
@@ -786,7 +800,7 @@ const ConnectStored: React.FC<{
                                         ),
                                     },
                                     {
-                                        label: "Dashboard",
+                                        label: t.connectForm.dashboardTab,
                                         key: "4",
                                         forceRender: true,
                                         children: (
@@ -825,7 +839,9 @@ const ConnectStored: React.FC<{
                                                                         ? Promise.resolve()
                                                                         : Promise.reject(
                                                                               new Error(
-                                                                                  "Please upload a dashboard definition file.",
+                                                                                  t
+                                                                                      .connectForm
+                                                                                      .valDashboardUpload,
                                                                               ),
                                                                           ),
                                                             },
@@ -847,7 +863,7 @@ const ConnectStored: React.FC<{
                                         ),
                                     },
                                     {
-                                        label: "Styles",
+                                        label: t.connectForm.stylesTab,
                                         key: "5",
                                         forceRender: true,
                                         children: (

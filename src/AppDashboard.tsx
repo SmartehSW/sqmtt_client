@@ -111,6 +111,7 @@ import {
 } from "./format/GaugeFormat";
 import { ChartIconFormat } from "./format/ChartFormat";
 import { ImageIconFormat } from "./format/ImageFormat";
+import { GaugeFormat } from "./gauge/GaugeTypes";
 import { JSONConvert, Shelly2Convert } from "./format/ConvertTypes";
 import AppError from "./AppError";
 import { createComponentLabeled } from "./units/ComponentLabeled";
@@ -222,6 +223,7 @@ const JSXCONTEXT = {
     DialIconFormat,
     FuelIconFormat,
     ControlIconFormat,
+    GaugeFormat,
 
     // IconFormats Chart
     ChartIconFormat,

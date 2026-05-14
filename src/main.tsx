@@ -18,10 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import { registerSW } from "virtual:pwa-register";
+import { readInitialLocale } from "./i18n/locales";
+import { getMessages } from "./i18n/translations";
 
 const updateSW = registerSW({
     onNeedRefresh() {
-        if (confirm("New content available. Reload?")) {
+        const loc = readInitialLocale();
+        if (confirm(getMessages(loc).common.pwaReloadConfirm)) {
             updateSW(true);
         }
     },

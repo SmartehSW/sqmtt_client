@@ -32,6 +32,7 @@ import AppHeader from "../AppHeader";
 import "./ContentConnect.css";
 import SVGIcon from "../format/SVGIcon";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { useI18n, LanguageSelect } from "../i18n/LocaleProvider";
 
 type ModalErrorInfo = {
     title: string;
@@ -45,6 +46,7 @@ const ConnectRemote: React.FC<{
 }> = ({ connectInfo, connectCredentials }) => {
     const [form] = Form.useForm<ConnectInfoForm>();
     const dispatch = useAppDispatch();
+    const { t } = useI18n();
     const HIDDEN: ModalErrorInfo = {
         visible: false,
         title: "",
@@ -64,8 +66,8 @@ const ConnectRemote: React.FC<{
     const handleFail = (): void => {
         showError({
             visible: true,
-            title: "Connection values error",
-            errorMessage: "Please fix the values with validation messages.",
+            title: t.connectForm.connectionValuesErrorTitle,
+            errorMessage: t.connectForm.connectionValuesErrorMsg,
         });
     };
 
@@ -93,9 +95,9 @@ const ConnectRemote: React.FC<{
                     } catch {
                         showError({
                             visible: true,
-                            title: "Connection error",
+                            title: t.connectForm.connectionStorageErrorTitle,
                             errorMessage:
-                                "Connection values cannot be stored locally. Please review the application permissions.",
+                                t.connectForm.connectionStorageErrorMsg,
                         });
                     }
                 }}
@@ -103,13 +105,14 @@ const ConnectRemote: React.FC<{
                 className="myhConnectionForm"
             >
                 <Layout className="myhLayout">
-                    <AppHeader title="Dashboard connection">
+                    <AppHeader title={t.connectForm.headerDashboardConnection}>
+                        <LanguageSelect />
                         <Button
                             icon={<SVGIcon icon={faPowerOff} />}
                             type="primary"
                             htmlType="submit"
                         >
-                            Connect
+                            {t.connectForm.connect}
                         </Button>
                     </AppHeader>
                     <Layout.Content className="myhLayoutContent">
@@ -118,7 +121,7 @@ const ConnectRemote: React.FC<{
                                 defaultActiveKey="1"
                                 items={[
                                     {
-                                        label: "MQTT Connection",
+                                        label: t.connectForm.mqttTab,
                                         key: "2",
                                         forceRender: true,
                                         children: (
@@ -150,9 +153,9 @@ const ConnectRemote: React.FC<{
                                                     <label
                                                         htmlFor="url"
                                                         className="ant-form-item-required"
-                                                        title="URL"
+                                                        title={t.connectForm.url}
                                                     >
-                                                        URL
+                                                        {t.connectForm.url}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -167,7 +170,8 @@ const ConnectRemote: React.FC<{
                                                             {
                                                                 required: true,
                                                                 message:
-                                                                    "Please input the url of the MQTT broker.",
+                                                                    t.connectForm
+                                                                        .valUrlRequired,
                                                             },
                                                         ]}
                                                     >
@@ -199,9 +203,9 @@ const ConnectRemote: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="username"
-                                                        title="User"
+                                                        title={t.connectForm.user}
                                                     >
-                                                        User
+                                                        {t.connectForm.user}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -223,9 +227,9 @@ const ConnectRemote: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="password"
-                                                        title="Password"
+                                                        title={t.connectForm.password}
                                                     >
-                                                        Password
+                                                        {t.connectForm.password}
                                                     </label>
                                                 </Col>
                                                 <Col
@@ -260,9 +264,9 @@ const ConnectRemote: React.FC<{
                                                 >
                                                     <label
                                                         htmlFor="clientId"
-                                                        title="Client ID"
+                                                        title={t.connectForm.clientId}
                                                     >
-                                                        Client ID
+                                                        {t.connectForm.clientId}
                                                     </label>
                                                 </Col>
                                                 <Col

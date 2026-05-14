@@ -16,10 +16,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React, { useEffect } from "react";
-import { App as AntApp, ConfigProvider } from "antd";
+import { App as AntApp } from "antd";
 import { Provider } from "react-redux";
 import { Buffer } from "buffer";
 import { store } from "./app/store";
+import { LocaleProvider } from "./i18n/LocaleProvider";
+import { useI18n } from "./i18n/LocaleProvider";
 import ConnectStored from "./connection/ConnectStored";
 import ConnectRemote from "./connection/ConnectRemote";
 import AppDashboard from "./AppDashboard";
@@ -59,14 +61,7 @@ if (appmodekeys.includes(appmode)) {
 }
 
 const App: React.FC = () => (
-    <ConfigProvider
-        theme={
-            {
-                // algorithm: theme.darkAlgorithm,
-                // algorithm: [theme.darkAlgorithm, theme.compactAlgorithm],
-            }
-        }
-    >
+    <LocaleProvider>
         <AntApp>
             <MQTTProvider>
                 <Provider store={store}>
@@ -74,10 +69,11 @@ const App: React.FC = () => (
                 </Provider>
             </MQTTProvider>
         </AntApp>
-    </ConfigProvider>
+    </LocaleProvider>
 );
 
 const MQTTApp: React.FC = () => {
+    const { t } = useI18n();
     const [{ error }, { brokerconnect, brokerdisconnect }] = useMQTTContext();
     const dispatch = useAppDispatch();
     const status = useAppSelector(selectStatus);
@@ -162,7 +158,7 @@ const MQTTApp: React.FC = () => {
             loadConfiguration().catch(error => {
                 dispatch(
                     statusError({
-                        message: "Cannot load the application configuration",
+                        message: t.app.configLoadError,
                         error,
                     }),
                 );
@@ -178,7 +174,7 @@ const MQTTApp: React.FC = () => {
     if (status.name === "ERROR") {
         return (
             <AppErrorLoad
-                title="Error loading SmartehMqtt"
+                title={t.app.errorLoadingTitle}
                 error={status.error}
             />
         );
@@ -210,7 +206,7 @@ const MQTTApp: React.FC = () => {
     if (error) {
         return (
             <AppError
-                title="Failed to connect to MQTT broker"
+                title={t.app.mqttConnectFailed}
                 errorMessage={error.message}
             />
         );
